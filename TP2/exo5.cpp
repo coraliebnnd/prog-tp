@@ -15,10 +15,19 @@ void splitAndMerge(Array& origin)
 	Array& second = w->newArray(origin.size()-first.size());
 	
 	// split
+    for(int i = 0; i < origin.size()/2; i++){
+        first[i]=origin[i];
+    }
+
+    int k = 0;
+    for(int j = origin.size()-first.size(); j < origin.size(); j++){
+        second[k]=origin[j];
+        k++;
+    }
 
 	// recursiv splitAndMerge of lowerArray and greaterArray
 
-	// merge
+    // merge
 }
 
 void merge(Array& first, Array& second, Array& result)
