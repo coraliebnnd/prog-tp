@@ -9,7 +9,19 @@ void insertionSort(Array& toSort){
 	Array& sorted=w->newArray(toSort.size());
 
 	// insertion sort from toSort to sorted
-	
+    sorted[0] = toSort[0];
+    int position;
+    for(int n=1;n<toSort.size();n++){
+        position = n;
+        for(int m=0;m<n; m++){
+            if(toSort[n]<=sorted[m]){
+                position = m;
+                break;
+            }
+        }
+        sorted.insert(position,toSort[n]);
+    }
+
 	toSort=sorted; // update the original array
 }
 
