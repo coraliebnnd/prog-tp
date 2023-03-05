@@ -9,6 +9,17 @@ int fibonacci(int value)
     Context _("fibonacci", value); // do not care about this, it allow the display of call stack
 
     // your code
+    switch(value){
+        case 0:
+            return 0;
+            break;
+        case 1:
+            return 1;
+            break;
+        default :
+            return fibonacci((value-1)) + fibonacci((value-2));
+            break;
+    }
 
     return_and_display(value);
 }
