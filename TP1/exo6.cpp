@@ -56,9 +56,9 @@ void ajoute(Liste* liste, int valeur)
 void affiche(const Liste* liste)
 {
     Noeud* affichage = liste->premier;
-    while (affichage->suivant != nullptr)
+    while (affichage != nullptr)
     {
-        cout << affichage->donnee << " , ";
+        cout << affichage->donnee << ", ";
         affichage = affichage->suivant;
     }
     cout << endl;
@@ -67,17 +67,39 @@ void affiche(const Liste* liste)
 
 int recupere(const Liste* liste, int n)
 {
-    return 0;
+    Noeud* tempo = liste->premier;
+    for(int i = 0; i < n; i++){
+        tempo = tempo->suivant;
+    }
+    return tempo->donnee;
 }
 
 int cherche(const Liste* liste, int valeur)
 {
-    return -1;
+    Noeud* tempo = liste->premier;
+    int count = 1;
+    while(tempo->donnee != valeur && tempo != nullptr){
+        tempo = tempo->suivant;
+        count++;
+    }
+    if(tempo == nullptr){
+        return -1;
+    }else{
+        return count;
+    }
 }
 
 void stocke(Liste* liste, int n, int valeur)
 {
-
+    Noeud* tempo = liste->premier;
+    int i = 1;
+    while(i!=n && tempo != nullptr){
+        tempo = tempo->suivant;
+        i++;
+    }
+    if(tempo != nullptr){
+        tempo->donnee = valeur;
+    }
 }
 
 void ajoute(DynaTableau* tableau, int valeur)
@@ -115,24 +137,36 @@ bool est_vide(const DynaTableau* tableau)
 void affiche(const DynaTableau* tableau)
 {
     for(int i = 0; i < tableau->taille; i++){
-        cout << tableau->donnees[i] << " ,";
+        cout << tableau->donnees[i] << ", ";
     }
     cout << endl;
 }
 
 int recupere(const DynaTableau* tableau, int n)
 {
-    return 0;
+    if(n>=tableau->taille){
+        return 0;
+    }else{
+        return tableau->donnees[n];
+    }
 }
 
 int cherche(const DynaTableau* tableau, int valeur)
 {
-    return -1;
+    int count = 0;
+    while(tableau->donnees[count] != valeur && count<tableau->taille){
+        count++;
+    }
+    if(count >= tableau->taille){
+        return -1;
+    }else{
+        return count+1;
+    }
 }
 
 void stocke(DynaTableau* tableau, int n, int valeur)
 {
-
+    tableau->donnees[n-1] = valeur;
 }
 
 //void pousse_file(DynaTableau* liste, int valeur)
