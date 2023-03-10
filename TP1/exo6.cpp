@@ -172,25 +172,55 @@ void stocke(DynaTableau* tableau, int n, int valeur)
 //void pousse_file(DynaTableau* liste, int valeur)
 void pousse_file(Liste* liste, int valeur)
 {
-
+    ajoute(liste, valeur);
 }
 
 //int retire_file(Liste* liste)
 int retire_file(Liste* liste)
 {
-    return 0;
+    Noeud *tempo = liste->premier;
+    if(tempo!=nullptr){
+        int valeur = tempo->donnee;
+        liste->premier = tempo->suivant;
+        delete tempo;
+        return valeur;
+    }else{
+        return -1;
+    }
 }
 
 //void pousse_pile(DynaTableau* liste, int valeur)
 void pousse_pile(Liste* liste, int valeur)
 {
-
+    ajoute(liste, valeur);
 }
 
 //int retire_pile(DynaTableau* liste)
 int retire_pile(Liste* liste)
 {
-    return 0;
+    Noeud *tempo = liste->premier;
+    int valeur;
+
+    if(tempo != nullptr && tempo->suivant == nullptr){
+        valeur = tempo->donnee;
+        delete tempo;
+        liste->premier = nullptr;
+        return valeur;
+    }
+
+    if(tempo != nullptr && tempo->suivant != nullptr){
+        while (tempo->suivant->suivant != nullptr)
+        {
+            tempo = tempo->suivant;
+        }
+        valeur = tempo->suivant->donnee;
+
+        delete tempo->suivant;
+        tempo->suivant = nullptr;
+        return valeur;
+    }else{
+        return -1;
+    }
 }
 
 
