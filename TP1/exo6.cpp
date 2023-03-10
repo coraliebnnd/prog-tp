@@ -39,26 +39,29 @@ void ajoute(Liste* liste, int valeur)
     newNoeud->donnee = valeur;
     newNoeud->suivant = nullptr;
 
-        if (est_vide(liste))
-        {
-            liste->premier = newNoeud;
-        }
-        else
-        {
-            Noeud* tempo = liste->premier;
-            while (tempo->suivant != nullptr)
-            {
-                tempo = tempo->suivant;
-            }
-            tempo->suivant = newNoeud;
-        }
+    Noeud* tempo = liste->premier;
 
-
+    if(tempo != nullptr){
+        while (tempo->suivant != nullptr)
+        {
+            tempo = tempo->suivant;
+        }
+        tempo->suivant = newNoeud;
+    }else{
+        liste->premier = newNoeud;
+    }
 
 }
 
 void affiche(const Liste* liste)
 {
+    Noeud* affichage = liste->premier;
+    while (affichage->suivant != nullptr)
+    {
+        cout << affichage->donnee << " , ";
+        affichage = affichage->suivant;
+    }
+    cout << endl;
 
 }
 
@@ -79,7 +82,19 @@ void stocke(Liste* liste, int n, int valeur)
 
 void ajoute(DynaTableau* tableau, int valeur)
 {
+    if(tableau->taille >= tableau->capacite){
+        tableau->capacite = tableau->capacite*2;
 
+        int* newTab = new int[tableau->capacite];
+        for(int i = 0; i < tableau->taille; i++) {
+            newTab[i] = tableau->donnees[i];
+        }
+        delete[] tableau->donnees;
+        tableau->donnees = newTab;
+    }
+
+    tableau->donnees[tableau->taille] = valeur;
+    tableau->taille = tableau->taille + 1;
 }
 
 
@@ -99,7 +114,10 @@ bool est_vide(const DynaTableau* tableau)
 
 void affiche(const DynaTableau* tableau)
 {
-
+    for(int i = 0; i < tableau->taille; i++){
+        cout << tableau->donnees[i] << " ,";
+    }
+    cout << endl;
 }
 
 int recupere(const DynaTableau* tableau, int n)
