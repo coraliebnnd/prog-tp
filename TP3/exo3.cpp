@@ -17,24 +17,68 @@ struct SearchTreeNode : public Node
     void initNode(int value)
     {
         // init initial node without children
+        this->left = nullptr;
+        this->right = nullptr;
+        this->value = value;
     }
 
 	void insertNumber(int value) {
         // create a new node and insert it in right or left child
+        if(value < this->value){
+            if(this->left == nullptr){
+                this->left = new SearchTreeNode(value);
+            }else{
+               this->left->insertNumber(value);
+            }
+        }else{
+            if(this->right == nullptr){
+                this->right = new SearchTreeNode(value);
+            }else{
+                this->right->insertNumber(value);
+            }
+        }
     }
 
 	uint height() const	{
         // should return the maximum height between left child and
         // right child +1 for itself. If there is no child, return
         // just 1
-        return 1;
+        int heightLeft = 0;
+        int heightRight = 0;
+
+        if(this->left != nullptr){
+           heightLeft = this->left->height();
+        }
+
+        if(this->right != nullptr){
+            heightRight = this->right->height();;
+        }
+
+        if(heightLeft < heightRight){
+            return heightRight+1;
+        }else{
+            return heightLeft+1;
+        }
     }
 
 	uint nodesCount() const {
         // should return the sum of nodes within left child and
         // right child +1 for itself. If there is no child, return
         // just 1
-        return 1;
+        int sumLeft = 0;
+        int sumRight = 0;
+
+        if(this->left != nullptr){
+           sumLeft = this->left->nodesCount();
+           sumLeft++;
+        }
+
+        if(this->right != nullptr){
+            sumRight = this->right->nodesCount();
+            sumRight++;
+        }
+
+        return sumRight+sumLeft;
 	}
 
 	bool isLeaf() const {

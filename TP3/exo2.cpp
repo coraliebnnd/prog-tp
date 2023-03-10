@@ -22,10 +22,10 @@ int binarySearchMin(Array& array, int toSearch){
         }else if(toSearch < array[mid]){
             end = mid;
         }else{
-            while(toSearch == array[mid]){
-                mid = mid-1;
+            while(toSearch == array[mid-1]){
+                mid--;
             }
-            return mid+1;
+            return mid;
         }
     }
     return -1;
@@ -41,10 +41,10 @@ int binarySearchMax(Array& array, int toSearch){
         }else if(toSearch < array[mid]){
             end = mid;
         }else{
-            while(toSearch == array[mid]){
-                mid = mid+1;
+            while(toSearch == array[mid+1]){
+                mid++;
             }
-            return mid-1;
+            return mid;
         }
     }
     return -1;
