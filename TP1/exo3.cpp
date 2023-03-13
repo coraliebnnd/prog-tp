@@ -10,7 +10,13 @@ int search(int value, Array& toSort, int size)
     Context _("search", value, size); // do not care about this, it allow the display of call stack
 
     // your code
+    int index = size-1;
     // check the last cell and if it does not correspond
+    if(toSort[index]!=value){
+        index = search(value, toSort, index);
+    }
+
+    return index;
     // then consider a smaller array when recalling search
 }
 
