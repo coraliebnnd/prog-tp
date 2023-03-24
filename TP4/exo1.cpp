@@ -44,7 +44,7 @@ void Heap::heapify(int heapSize, int nodeIndex)
          i_max = indexLeft;
     }
 
-    if(indexRight < heapSize && this->get(indexRight) > valueNode){
+    if(indexRight < heapSize && this->get(indexRight) > this->get(i_max)){
          i_max = indexRight;
     }
 
@@ -56,12 +56,17 @@ void Heap::heapify(int heapSize, int nodeIndex)
 
 void Heap::buildHeap(Array& numbers)
 {
-
+    for(int i = 0; i < numbers.size(); i++){
+        insertHeapNode(i,numbers[i]);
+    }
 }
 
 void Heap::heapSort()
 {
-
+    for(int i = this->size()-1; i > 0; i--){
+        swap(0,i);
+        heapify(i,0);
+    }
 }
 
 int main(int argc, char *argv[])
