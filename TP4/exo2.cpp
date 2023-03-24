@@ -59,14 +59,20 @@ void processCharFrequences(string data, Array& frequences)
 
     // Your code
     frequences.fill(0);
+    for(int i = 0; i < data.size(); i++){
+        int test = data.at(i);
+        frequences[test] += 1;
+    }
 }
 
 void HuffmanHeap::insertHeapNode(int heapSize, HuffmanNode* newNode)
 {
     /**
-      * Insert a HuffmanNode into the lower heap. A min-heap put the lowest value
-      * as the first cell, so check the parent should be lower than children.
-      * Instead of storing int, the cells of HuffmanHeap store HuffmanNode*.
+      * Insert a HuffmanNode into the lower heap. A min-heap put the
+      * lowest value as the first cell, so check the parent should be
+      * lower than children.
+      * Instead of storing int, the cells of HuffmanHeap store
+      * HuffmanNode*.
       * To compare these nodes use their frequences.
       * this->get(i): HuffmanNode*  <-> this->get(i)->frequences
       * you can use `this->swap(firstIndex, secondIndex)`
@@ -74,7 +80,11 @@ void HuffmanHeap::insertHeapNode(int heapSize, HuffmanNode* newNode)
 
     // Your code
     int i = heapSize;
-
+    this->set(i, newNode);
+    while(i>0 && this->get(i)->frequences>this->get(i-1)->frequences){
+        swap(i,i-1);
+        i = i-1;
+    }
 }
 
 void buildHuffmanHeap(const Array& frequences, HuffmanHeap& priorityMinHeap, int& heapSize)
