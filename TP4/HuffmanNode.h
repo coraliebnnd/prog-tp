@@ -97,7 +97,11 @@ public:
 
 protected:
     void insert(const int index, const ElementType& value) {
+<<<<<<< HEAD
         //Base::insert(index, value);
+=======
+        // Base::insert(index, value);
+>>>>>>> a3220bd870e0391bd83247455c0f58d3556a0e9c
     }
 };
 
