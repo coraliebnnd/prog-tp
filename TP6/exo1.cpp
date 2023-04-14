@@ -9,16 +9,39 @@ void Graph::buildFromAdjenciesMatrix(int **adjacencies, int nodeCount)
 	/**
 	  * Make a graph from a matrix
 	  * first create all nodes, add it to the graph then connect them
-	  * this->appendNewNode
-	  * this->nodes[i]->appendNewEdge
-	  */
+      * this->appendNewNode
+      * this->nodes[i]->appendNewEdge
+      */
+    for(int i = 0; i<nodeCount; i++){
+        this->appendNewNode(new GraphNode(i));
+    }
+
+    for(int i = 0; i<nodeCount; i++){
+        for(int j = 0; j<nodeCount; j++){
+            if(adjacencies[i][j]>=1){
+                this->nodes[i]->appendNewEdge(this->nodes[j], adjacencies[i][j]);
+            }
+        }
+    }
 }
 
 void Graph::deepTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, bool visited[])
 {
 	/**
 	  * Fill nodes array by travelling graph starting from first and using recursivity
-	  */
+      */
+    int value = first->value;
+        if(visited[value] == false)
+        {
+            visited[value] = true;
+            Edge* newEdge = first->edges;
+            while(newEdge != nullptr)
+            {
+                this->deepTravel(newEdge->destination, nodes, nodesSize, visited);
+                newEdge = newEdge->next;
+            }
+        }
+
 
 }
 
@@ -33,6 +56,7 @@ void Graph::wideTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
 	 */
 	std::queue<GraphNode*> nodeQueue;
 	nodeQueue.push(first);
+
 }
 
 bool Graph::detectCycle(GraphNode *first, bool visited[])

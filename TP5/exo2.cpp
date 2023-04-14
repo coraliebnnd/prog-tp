@@ -23,7 +23,13 @@ std::vector<string> TP5::names(
 unsigned long int hash(string key)
 {
     // return an unique hash id from key
-    return 0;
+    int sum = 0;
+    int j = key.size();
+    for(int i = 0; i < key.size();i++){
+        sum += key.at(i)*pow(128,j);
+        j--;
+    }
+    return sum;
 }
 
 struct MapNode : public BinaryTree
@@ -52,7 +58,19 @@ struct MapNode : public BinaryTree
      */
     void insertNode(MapNode* node)
     {
-
+        if(node->key_hash < this->key_hash){
+            if(this->left == nullptr){
+                this->left = node;
+            }else{
+                this->left->insertNode(node);
+            }
+        }else{
+            if(this->right == nullptr){
+                this->right = node;
+            }else{
+                this->right->insertNode(node);
+            }
+        }
     }
 
     void insertNode(string key, int value)
@@ -68,6 +86,8 @@ struct MapNode : public BinaryTree
 
 struct Map
 {
+    MapNode* root;
+
     Map() {
         this->root = nullptr;
     }
@@ -79,7 +99,12 @@ struct Map
      */
     void insert(string key, int value)
     {
-
+        MapNode* newNode = new MapNode(key, value);
+        if(root == nullptr){
+            root = newNode;
+        }else{
+            root->insertNode(newNode);
+        }
     }
 
     /**
@@ -89,10 +114,21 @@ struct Map
      */
     int get(string key)
     {
-        return -1;
+        if(this->key_hash == hash(key)){
+            return this->value;
+        }else{
+            if(this->left != nullptr){
+                return this->left->find(value);
+            }
+
+            if(this->right != nullptr){
+                return this->right->find(value);
+            }
+        }
+
+        return nullptr;
     }
 
-    MapNode* root;
 };
 
 
