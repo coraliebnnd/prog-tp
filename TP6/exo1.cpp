@@ -31,18 +31,21 @@ void Graph::deepTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
 	  * Fill nodes array by travelling graph starting from first and using recursivity
       */
     int value = first->value;
-        if(visited[value] == false)
-        {
-            visited[value] = true;
-            Edge* newEdge = first->edges;
-            while(newEdge != nullptr)
-            {
-                this->deepTravel(newEdge->destination, nodes, nodesSize, visited);
-                newEdge = newEdge->next;
-            }
+
+    visited[value] = true;
+
+    nodes[nodesSize]=first;
+    nodesSize++;
+
+    Edge* newEdge = first->edges;
+    while(newEdge != nullptr)
+    {
+        GraphNode* dest = newEdge->destination;
+        if (!visited[dest->value]) {
+            this->deepTravel(dest, nodes, nodesSize, visited);
         }
-
-
+        newEdge = newEdge->next;
+    }
 }
 
 void Graph::wideTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, bool visited[])
@@ -61,11 +64,20 @@ void Graph::wideTravel(GraphNode *first, GraphNode *nodes[], int &nodesSize, boo
         GraphNode* firstNode = nodeQueue.front();
         nodeQueue.pop();
         visited[firstNode->value] = true;
+        nodes[nodesSize]=first;
+        nodesSize++;
 
         Edge* newEdge = first->edges;
         while(newEdge != nullptr)
         {
-            nodeQueue.push(newEdge->destination);
+            GraphNode* dest = newEdge->destination;
+            if (!visited[dest->value]) {
+                visited[dest->value] = true;
+                nodeQueue.push(newEdge->destination);
+                nodes[nodesSize]=dest;
+                nodesSize++;
+            }
+
             newEdge = newEdge->next;
         }
     }

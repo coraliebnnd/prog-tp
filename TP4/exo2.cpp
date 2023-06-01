@@ -81,9 +81,9 @@ void HuffmanHeap::insertHeapNode(int heapSize, HuffmanNode* newNode)
     // Your code
     int i = heapSize;
     this->set(i, newNode);
-    while(i>0 && this->get(i)->frequences>this->get(i-1)->frequences){
-        swap(i,i-1);
-        i = i-1;
+    while(i>0 && this->get(i)->frequences>this->get((i-1)/2)->frequences){
+        swap(i,(i-1)/2);
+        i = (i-1)/2;
     }
 }
 

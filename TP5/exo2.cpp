@@ -115,19 +115,19 @@ struct Map
      */
     int get(string key)
     {
-        if(this->key_hash == hash(key)){
-            return this->value;
-        }else{
-            if(this->left != nullptr){
-                return this->left->find(value);
-            }
-
-            if(this->right != nullptr){
-                return this->right->find(value);
+        int key_hash = hash(key);
+        MapNode* node = this->root;
+        while(node != nullptr){
+            if(node->key_hash == key_hash){
+                return node->value;
+            }else if(node->key_hash > key_hash){
+                node = node->left;
+            }else{
+                node = node->right;
             }
         }
 
-        return nullptr;
+        return 0;
     }
 
 };
